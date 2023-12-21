@@ -1,0 +1,10 @@
+<korisnici>
+  <korisnik>
+    <korisnik_id xmlns="2" />
+    <korisnicko_ime xmlns="berni2" />
+    <lozinka xmlns="berni" />
+    <ime xmlns="ivan" />
+    <prezime xmlns="bernatovic" />
+    <email xmlns="crvenban@gmail.com" />
+  </korisnik>
+</korisnici>
