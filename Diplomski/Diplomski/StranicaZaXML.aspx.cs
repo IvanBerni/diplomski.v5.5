@@ -111,7 +111,10 @@ namespace Diplomski
         protected void SpremiXMLuBazu_Click(object sender, EventArgs e)  //sprema u bazu podatke iz XML-a, koristi stored proceduru.JAVLJA GREŠKU!! TREBA Deserialize??
         {
             string fileName = Path.GetFileName(FileUpload1.PostedFile.FileName);
-            string filePath = Server.MapPath("~/Xmlmapa/") + fileName;  
+
+            string filePath = System.Web.Hosting.HostingEnvironment.MapPath("~/Xmlmapa/") + fileName;
+
+            //string filePath = Server.MapPath("~/Xmlmapa/") + fileName;  
             FileUpload1.SaveAs(filePath);
             
             string xml = File.ReadAllText(filePath);  
@@ -124,8 +127,10 @@ namespace Diplomski
                 using (SqlCommand cmd = new SqlCommand("InsertirajXML"))
                 {
                     cmd.Connection = con;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@xml", xd);  ////opcija:xml umjesto xd //cmd.Parameters.Add("@xml", SqlDbType.Xml).Value = xd.GetXml();
+                    cmd.CommandType = CommandType.StoredProcedure;                    
+                    SqlParameter param = new SqlParameter("@xml", SqlDbType.Xml);
+                    param.Value = xd.InnerXml;
+                    cmd.Parameters.Add(param);
                     con.Open();
                     cmd.ExecuteNonQuery(); 
                     con.Close();
@@ -309,10 +314,9 @@ namespace Diplomski
                 kornode.AppendChild(email);
             }
 
-            // save the xmldoc to the disk inside project folder vith virtual path
-            string path = System.Web.Hosting.HostingEnvironment.MapPath("~/Xmlmapa/korisnici.xml");
+            string filePath = System.Web.Hosting.HostingEnvironment.MapPath("~/Xmlmapa/korisnici.xml");
 
-            xmldok.Save(path);
+            xmldok.Save(filePath);
 
 
         }

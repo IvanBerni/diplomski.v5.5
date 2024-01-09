@@ -1,10 +1,18 @@
 <korisnici>
-  <korisnik>
-    <korisnik_id xmlns="2" />
-    <korisnicko_ime xmlns="berni2" />
-    <lozinka xmlns="berni" />
-    <ime xmlns="ivan" />
-    <prezime xmlns="bernatovic" />
-    <email xmlns="crvenban@gmail.com" />
-  </korisnik>
+	<korisnik>
+		<korisnik>1</korisnik>
+		<korisnicko_ime>Test</korisnicko_ime>
+		<lozinka>Test</lozinka>
+		<ime>test</ime>
+		<prezime>test</prezime>
+		<email>crvenban@gmail.com</email>
+	</korisnik>
+	<korisnik>
+		<korisnik>1</korisnik>
+		<korisnicko_ime>Test2</korisnicko_ime>
+		<lozinka>Test2</lozinka>
+		<ime>test2</ime>
+		<prezime>test2</prezime>
+		<email>crvenban@gmail.com</email>
+	</korisnik>
 </korisnici>
