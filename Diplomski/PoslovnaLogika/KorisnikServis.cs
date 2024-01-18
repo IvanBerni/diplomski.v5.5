@@ -38,7 +38,11 @@ namespace PoslovnaLogika
         public List<Korisnik> DajXmlUListu()
         {
             XmlDocument xmldok = new XmlDocument();
-            xmldok.Load(@"C:\Users\s00ivbe\source\repos\zadatak\zadatak\XmlDatoteka\Korisnici.xml");
+
+            //get file path for file located inside projekt folder Xmlmapa
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Xmlmapa\korisnici.xml");
+
+            xmldok.Load(path);
             XmlElement root = xmldok.DocumentElement;
             XmlNodeList nodes = root.GetElementsByTagName("Korisnik");
 

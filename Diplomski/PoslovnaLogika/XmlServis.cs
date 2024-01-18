@@ -95,7 +95,7 @@ namespace PoslovnaLogika
 
             xmldok1.Load(putanja1);
             XmlElement root = xmldok1.DocumentElement;
-            XmlNodeList nodes = root.GetElementsByTagName("Korisnik");
+            XmlNodeList nodes = root.GetElementsByTagName("korisnik");
             XmlRootAttribute xra = new XmlRootAttribute();
             xra.ElementName = "korisnik";
             XmlSerializer xs = new XmlSerializer(typeof(Korisnik), xra);
@@ -109,7 +109,7 @@ namespace PoslovnaLogika
 
             xmldok2.Load(putanja2);
             XmlElement root2 = xmldok2.DocumentElement;
-            XmlNodeList nodes2 = root2.GetElementsByTagName("Korisnik");
+            XmlNodeList nodes2 = root2.GetElementsByTagName("korisnik");
             XmlRootAttribute xra2 = new XmlRootAttribute();
             xra2.ElementName = "korisnik";
             XmlSerializer xs2 = new XmlSerializer(typeof(Korisnik), xra2);
@@ -136,13 +136,13 @@ namespace PoslovnaLogika
                 XmlDocument razdok = KreiraXmlListuRazlike(sviRazlicitiKorisnici);
                 razdok.Save(@"C:\Users\User\Source\Repos\diplomski.v5.1\Diplomski\Diplomski\Xmlmapa\Različiti_iz_AB_po_IDu.xml");
                 Console.WriteLine("Kreiran XML sa svim razlikama");
-                Console.ReadKey();
+               
             }
 
             else
             {
                 Console.WriteLine("nema razlike između A i B po svim kriterijima");
-                Console.ReadKey();
+                
             }
 
 
@@ -216,13 +216,13 @@ namespace PoslovnaLogika
                 XmlDocument razdokA = KreiraXmlListuRazlike(obrisaniKorisnici);
                 razdokA.Save(@"C:\Users\User\Source\Repos\diplomski.v5.1\Diplomski\Diplomski\Xmlmapa\ImaANemaB.xml");
                 Console.WriteLine("Kreiran XML Ima A nema B");
-                Console.ReadKey();
+              
             }
 
             else
             {
                 Console.WriteLine("nema razlike između A i B");
-                Console.ReadKey();
+              
             }
             //////////////IZ LISTE B TRAŽI U LISTI A PO ID-u ///////////////////
 
@@ -233,12 +233,12 @@ namespace PoslovnaLogika
                 XmlDocument razdokB = KreiraXmlListuRazlike(dodaniKorisnici);
                 razdokB.Save(@"C:\Users\User\Source\Repos\diplomski.v5.1\Diplomski\Diplomski\Xmlmapa\ImaBNemaA.xml");
                 Console.WriteLine("Kreiran XML Ima B nema A");
-                Console.ReadKey();
+                
             }
             else
             {
                 Console.WriteLine("nema razlike između B i A");
-                Console.ReadKey();
+                
             }
 
         }

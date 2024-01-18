@@ -101,7 +101,7 @@ namespace PristupPodatcima
                 cmd.Connection = conn;
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = (@" update korisnik 
-                                      set  lozinka = @lozinka, ime = @ime, prezime = @prezime, email = @email, korisnickoIme = @korisnickoIme
+                                      set  lozinka = @lozinka, ime = @ime, prezime = @prezime, email = @email, korisnicko_ime = @korisnicko_ime
                                       where korisnik_id = @korisnik_id ");
 
 
@@ -110,7 +110,7 @@ namespace PristupPodatcima
                 cmd.Parameters.Add("@prezime", SqlDbType.VarChar).Value = prezime;
                 cmd.Parameters.Add("@email", SqlDbType.VarChar).Value = email;
                 cmd.Parameters.Add("@korisnik_id", SqlDbType.VarChar).Value = korID;
-                cmd.Parameters.Add("@korisnickoIme", SqlDbType.VarChar).Value = korisnickoIme;
+                cmd.Parameters.Add("@korisnicko_ime", SqlDbType.VarChar).Value = korisnickoIme;
 
                 cmd.ExecuteNonQuery();
 

@@ -43,12 +43,10 @@ namespace Diplomski
 
         protected void UsporediDvaXmla_Click(object sender, EventArgs e)  // uspoređuje dva XML-a
         {
-             
+            string apsolutnaPutanja2 = System.Web.Hosting.HostingEnvironment.MapPath("~/Xmlmapa/") + FileUpload2.FileName;
+            string apsolutnaPutanja1 = System.Web.Hosting.HostingEnvironment.MapPath("~/Xmlmapa/") + FileUpload1.FileName;
 
-            string apsolutnaPutanja2 = Path.Combine(Server.MapPath("~/Xmlmapa"), FileUpload2.FileName);
-            string apsolutnaPutanja1 = Path.Combine(Server.MapPath("~/Xmlmapa"), FileUpload1.FileName);
 
-            
             XmlServis.XmlCompare(apsolutnaPutanja1, apsolutnaPutanja2);
 
 
@@ -149,7 +147,10 @@ namespace Diplomski
         {
             XmlDocument xmldok = new XmlDocument();
             //xmldok.Load(apsolutnaPutanja);// ne da mi pristupiti
-            xmldok.Load(@"C:\Users\User\Source\Repos\diplomski.v5.1\Diplomski\Diplomski\Xmlmapa\Korisnici.xml");
+
+            string filePath = System.Web.Hosting.HostingEnvironment.MapPath("~/Xmlmapa/korisnici.xml");
+
+            xmldok.Load(filePath);
             XmlElement root = xmldok.DocumentElement;
             XmlNodeList nodes = root.GetElementsByTagName("korisnik");//korisnik
 
@@ -163,8 +164,6 @@ namespace Diplomski
             {
                 Stream stream = new MemoryStream(Encoding.UTF8.GetBytes("<korisnik>" + xmlNode.InnerXml.ToString() + "</korisnik>"));
                 korisnici.Add((Korisnik)xs.Deserialize(stream));
-
-
             }
 
             return korisnici;
@@ -300,17 +299,28 @@ namespace Diplomski
                 XmlNode kornode = xmldok.CreateElement("korisnik");
                 rootnode.AppendChild(kornode);
 
-                var kor_id = xmldok.CreateElement("korisnik_id", korisnik.KorisnikId.ToString());
+                var kor_id = xmldok.CreateElement("korisnik_id");
+                kor_id.InnerText = korisnik.KorisnikId.ToString();
                 kornode.AppendChild(kor_id);
-                var kor_ime = xmldok.CreateElement("korisnicko_ime", korisnik.KorisnickoIme);
+
+                var kor_ime = xmldok.CreateElement("korisnicko_ime");
+                kor_ime.InnerText = korisnik.KorisnickoIme.ToString();
                 kornode.AppendChild(kor_ime);
-                var loz = xmldok.CreateElement("lozinka", korisnik.Lozinka);
+
+                var loz = xmldok.CreateElement("lozinka");
+                loz.InnerText = korisnik.Lozinka.ToString();
                 kornode.AppendChild(loz);
-                var ime = xmldok.CreateElement("ime", korisnik.Ime);
+                
+                var ime = xmldok.CreateElement("ime");
+                ime.InnerText = korisnik.Ime.ToString();
                 kornode.AppendChild(ime);
-                var prez = xmldok.CreateElement("prezime", korisnik.Prezime);
+                
+                var prez = xmldok.CreateElement("prezime");
+                prez.InnerText = korisnik.Prezime.ToString();
                 kornode.AppendChild(prez);
-                var email = xmldok.CreateElement("email", korisnik.Email);
+                
+                var email = xmldok.CreateElement("email");
+                email.InnerText = korisnik.Email.ToString();
                 kornode.AppendChild(email);
             }
 
@@ -324,10 +334,11 @@ namespace Diplomski
 
         public void IspisujeXmlNaKonzolu()
         {
-            string apsolutnaPutanja = Path.Combine(Server.MapPath("~/Xmlmapa"), FileUpload1.FileName);
+            string apsolutnaPutanja1 = System.Web.Hosting.HostingEnvironment.MapPath("~/Xmlmapa/") + FileUpload1.FileName;           
 
             XmlDocument dok = new XmlDocument();
-            dok.Load(@"C:\Users\User\Source\Repos\diplomski.v5.1\Diplomski\Diplomski\Xmlmapa");
+
+            dok.Load(apsolutnaPutanja1);
             XmlElement ela = dok.DocumentElement;
             Console.WriteLine(ela.InnerXml);
             Console.ReadKey();
