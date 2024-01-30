@@ -44,7 +44,7 @@ namespace UnitTestProject
             {
                 KorisnikServis korisnikServis = new KorisnikServis();
 
-                //korsničko ime treba?
+                //korsničko ime treba? možda
 
                 korisnikServis.AzuriranjeKorisnika(lozinka, ime, prezime, email, kor_id,"");
 
