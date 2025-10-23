@@ -36,14 +36,7 @@ Datoteka se sprema na generiranu apsolutnu putanju na poslužitelju pomoću File
 Tekstualni sadržaj labele Label1 se postavlja na poruku koja potvrđuje/demantira učitavanje datoteke.
 
 Ispisuje XML dokument
-Za ispis XML-a koristi se događajni hendler IspisiXml_Click koji se okida na gumb IspisiXml, zatim se poziva metoda IspisujeXmlNaKonzolu koja radi slijedeće:
-provjerava je li učitana XML datoteku pomoću kontrole FileUpload1.HasFile. Ako je datoteka učitana:
-Generira se apsolutna putanja za učitanu datoteku kombiniranjem relativne putanje mape Xmlmapa s imenom datoteke koju je korisnik odabrao.
-Učitana datoteka se sprema na generiranu apsolutnu putanju na poslužitelju pomoću FileUpload1.SaveAs(apsolutnaPutanja1).
-Nakon što je datoteka učitana, instancira se XmlDocument objekt i učitava se sadržaj datoteke.
-Nakon učitavanja, dobiva se glavni XML element iz dokumenta kako bi se mogao prikazati na stranici.
-Metoda koristi Response.Write metodu za prikazivanje XML-a na stranici, vraćajući XML sadržaj kao string.
-Ako datoteka nije prethodno učitana metoda vraća prazan string.
+Metoda DajFormatiraniXmlKaoString uzima XML datoteku koju je korisnik odabrao u kontroli FileUpload1, sprema je na server ako još nije pohranjena, učitava sadržaj u XmlDocument i formatira XML tako da bude čitljiv s uvlačenjem i novim redovima. Rezultat vraća kao string, koji se u događajnom hendleru IspisiXml_Click prikazuje u Labeli koristeći HTML escape i <pre> tag. Ako se dogodi greška ili datoteka nije odabrana, metoda vraća odgovarajuću poruku.
 
 
 Eksportira podatke iz baze u XML dokument
