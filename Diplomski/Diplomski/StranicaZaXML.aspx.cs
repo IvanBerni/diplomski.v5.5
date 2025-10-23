@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Model;
 using PoslovnaLogika;
-using Model;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.IO;
+using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using System.Text;
-using System.Configuration;
-using System.Data.SqlClient;
-using System.Web.UI.WebControls;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using PristupPodatcima;
+
 
 
 
@@ -21,41 +17,68 @@ namespace Diplomski
 {
     public partial class StranicaZaXML : System.Web.UI.Page
     {
+        public KorisnikServis kos = new KorisnikServis();
+        public List<Korisnik> kor = new List<Korisnik>();
+
         protected void Page_Load(object sender, EventArgs e)
+
         {
-            //if (!IsPostBack)
+            if (!IsPostBack)
+            {
+                Label1.Text = string.Empty;
+
+
+            }
+
+
+
+           
         }
-
-        KorisnikServis kos = new KorisnikServis();
-        List<Korisnik> kor = new List<Korisnik>();
-
 
         protected void IspisiXml_Click(object sender, EventArgs e)  // ispisuje XML na konzoli
         {
-            
 
 
-            IspisujeXmlNaKonzolu();
+
+           
+          // IspisujeXmlNaKonzolu();
+            string xmlSadrzaj = DajFormatiraniXmlKaoString();
+            Label1.Text = "<pre>" + Server.HtmlEncode(xmlSadrzaj) + "</pre>";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         }
-
-
         protected void UsporediDvaXmla_Click(object sender, EventArgs e)  // uspoređuje dva XML-a
         {
             string apsolutnaPutanja2 = System.Web.Hosting.HostingEnvironment.MapPath("~/Xmlmapa/") + FileUpload2.FileName;
             string apsolutnaPutanja1 = System.Web.Hosting.HostingEnvironment.MapPath("~/Xmlmapa/") + FileUpload1.FileName;
 
 
-            XmlServis.XmlCompare(apsolutnaPutanja1, apsolutnaPutanja2);
+          Label1.Text = XmlServis.XmlCompare(apsolutnaPutanja1, apsolutnaPutanja2);
 
 
         }
-
+        
         protected void ExportUXml_Click(object sender, EventArgs e)  //  IZ BAZE U XML
         {
 
             KreiraXmlKorisnika();
+
+            Label2.Text = "eksportirao iz baze";
+
 
 
         }
@@ -106,39 +129,43 @@ namespace Diplomski
             UsporediRijesiDviListeKorisnika(korprvi, kordrugi);
         }
 
-        protected void SpremiXMLuBazu_Click(object sender, EventArgs e)  //sprema u bazu podatke iz XML-a, koristi stored proceduru.JAVLJA GREŠKU!! TREBA Deserialize??
+        protected void SpremiXMLuBazu_Click(object sender, EventArgs e)  //sprema u bazu podatke iz XML-a, koristi stored proceduru.
         {
-            string fileName = Path.GetFileName(FileUpload1.PostedFile.FileName);
-
-            string filePath = System.Web.Hosting.HostingEnvironment.MapPath("~/Xmlmapa/") + fileName;
-
-            //string filePath = Server.MapPath("~/Xmlmapa/") + fileName;  
-            FileUpload1.SaveAs(filePath);
-            
-            string xml = File.ReadAllText(filePath);  
-            string constr = ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
-
-            XmlDocument xd = new XmlDocument();
-            xd.LoadXml(xml);  
-            using (SqlConnection con = new SqlConnection(constr))
+            if (FileUpload1.HasFile)
             {
-                using (SqlCommand cmd = new SqlCommand("InsertirajXML"))
+                string fileName = Path.GetFileName(FileUpload1.PostedFile.FileName);
+
+                string filePath = System.Web.Hosting.HostingEnvironment.MapPath("~/Xmlmapa/") + fileName;
+
+                //string filePath = Server.MapPath("~/Xmlmapa/") + fileName;  
+                FileUpload1.SaveAs(filePath);
+
+                string xml = File.ReadAllText(filePath);
+                string constr = ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
+
+                XmlDocument xd = new XmlDocument();
+                xd.LoadXml(xml);
+                using (SqlConnection con = new SqlConnection(constr))
                 {
-                    cmd.Connection = con;
-                    cmd.CommandType = CommandType.StoredProcedure;                    
-                    SqlParameter param = new SqlParameter("@xml", SqlDbType.Xml);
-                    param.Value = xd.InnerXml;
-                    cmd.Parameters.Add(param);
-                    con.Open();
-                    cmd.ExecuteNonQuery(); 
-                    con.Close();
+                    using (SqlCommand cmd = new SqlCommand("InsertirajXML"))
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        SqlParameter param = new SqlParameter("@xml", SqlDbType.Xml);
+                        param.Value = xd.InnerXml;
+                        cmd.Parameters.Add(param);
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
                 }
+
+
             }
-         
-            XmlDal pp = new XmlDal();
-            pp.InsertirajPodatkeUBazuIzXmla(); //metoda u XmlDal
-
-
+            else
+            {
+                Label1.Text = "fajl nije učitan";
+            }
 
         }
 
@@ -171,10 +198,10 @@ namespace Diplomski
 
 
 
-        public void UsporediRijesiDviListeKorisnika(List<Korisnik> korprvi, List<Korisnik> kordrugi)
+        public void UsporediRijesiDviListeKorisnika(List<Korisnik> korprvi, List<Korisnik> kordrugi) //treba li test za ovu metodu ??
         {
 
-            List<Korisnik> korisniciBaza = kordrugi; // korprvi;
+            List<Korisnik> korisniciBaza = korprvi; 
             List<Korisnik> korisniciXML = kordrugi;
 
             List<Korisnik> izmjenjeni = new List<Korisnik>();
@@ -240,15 +267,15 @@ namespace Diplomski
 
                     kos.AzuriranjeKorisnika(lozinka, ime, prezime, email, korID, korisnickoIme);
 
-                    Console.WriteLine("korisnici azurirani");
-                    Console.ReadKey();
+                    Label1.Text = "korisnici azurirani";
+
                 }
             }
 
             else
             {
-                Console.WriteLine("nije bilo korisnika za ažuriranje ");
-                Console.ReadKey();
+                Label1.Text = "nije bilo korisnika za ažuriranje ";
+
             }
 
 
@@ -268,15 +295,15 @@ namespace Diplomski
 
                     kos.InsertiranjeKorisnika(lozinka, ime, prezime, email, korIme, korID);
 
-                    Console.WriteLine("insertirani korisnici");
+                    Label1.Text = "insertirani korisnici";
                     Console.ReadKey();
                 }
             }
 
             else
             {
-                Console.WriteLine("nije bilo novih korisnika ");
-                Console.ReadKey();
+                Label1.Text = "nije bilo novih korisnika ";
+
 
             }
 
@@ -310,55 +337,75 @@ namespace Diplomski
                 var loz = xmldok.CreateElement("lozinka");
                 loz.InnerText = korisnik.Lozinka.ToString();
                 kornode.AppendChild(loz);
-                
+
                 var ime = xmldok.CreateElement("ime");
                 ime.InnerText = korisnik.Ime.ToString();
                 kornode.AppendChild(ime);
-                
+
                 var prez = xmldok.CreateElement("prezime");
                 prez.InnerText = korisnik.Prezime.ToString();
                 kornode.AppendChild(prez);
-                
+
                 var email = xmldok.CreateElement("email");
                 email.InnerText = korisnik.Email.ToString();
                 kornode.AppendChild(email);
             }
 
-            string filePath = System.Web.Hosting.HostingEnvironment.MapPath("~/Xmlmapa/korisnici.xml");
+            string filePath = System.Web.Hosting.HostingEnvironment.MapPath("~/Xmlmapa/EksportIzBaze.xml");
 
             xmldok.Save(filePath);
 
 
+
+
         }
 
 
-        public void IspisujeXmlNaKonzolu()
+
+        private string DajFormatiraniXmlKaoString()   //ispisuje xml
         {
-            string apsolutnaPutanja1 = System.Web.Hosting.HostingEnvironment.MapPath("~/Xmlmapa/") + FileUpload1.FileName;           
+            try
+            {
+                if (!FileUpload1.HasFile)
+                    return "Nijedna datoteka nije odabrana.";
 
-            XmlDocument dok = new XmlDocument();
+                string folderPath = Server.MapPath("~/Xmlmapa/");
+                string filePath = Path.Combine(folderPath, FileUpload1.FileName);
 
-            dok.Load(apsolutnaPutanja1);
-            XmlElement ela = dok.DocumentElement;
-            Console.WriteLine(ela.InnerXml);
-            Console.ReadKey();
-            return;
+                if (!File.Exists(filePath))
+                    FileUpload1.SaveAs(filePath);
 
+                XmlDocument dok = new XmlDocument();
+                dok.Load(filePath);
+
+                // Kreiramo StringWriter za formatirani XML
+                StringBuilder sb = new StringBuilder();
+                XmlWriterSettings settings = new XmlWriterSettings
+                {
+                    Indent = true,
+                    IndentChars = "    ", // 4 razmaka za uvlačenje
+                    NewLineChars = "\r\n",
+                    NewLineHandling = NewLineHandling.Replace
+                };
+
+                using (XmlWriter writer = XmlWriter.Create(sb, settings))
+                {
+                    dok.Save(writer);
+                }
+
+                return sb.ToString();
+            }
+            catch (Exception ex)
+            {
+                return "Greška pri čitanju XML-a: " + ex.Message;
+            }
         }
 
 
 
-
-
-
-
-
-
-
-
+        
 
     }
-
-
 }
-  
+
+
