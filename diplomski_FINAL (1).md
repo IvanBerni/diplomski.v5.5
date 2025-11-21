@@ -26,7 +26,7 @@
     - [✔️ Moderno korisničko iskustvo](#moderno-korisniko-iskustvo)
 - [3.3.7. Dijagram arhitekture](#337-dijagram-arhitekture)
 ```csharp
-- [<img src="media/image1.png" style="width:4.04167in;height:6.0625in" />](#img-srcmediaimage1png-stylewidth404167inheight60625in)
+
 - [4. IMPLEMENTACIJA POSLUŽITELJSKE STRANE (BACKEND)](#4-implementacija-posluiteljske-strane-backend)
 - [4.1. Struktura projekta](#41-struktura-projekta)
     - [**4.1.1. Controllers**](#411-controllers)
