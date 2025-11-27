@@ -48,7 +48,6 @@
   - [4.8.2. KorisniciController](#482-korisnicicontroller)
 - [4.9. Konfiguracijska datoteka (appsettings.json)](#49-konfiguracijska-datoteka-appsettingsjson)
 - [6. Evaluacija moderniziranog rješenja](#6-evaluacija-moderniziranog-rjeenja)
-- [---------------------------------------](#---------------------------------------)
   - [6.1. Prednosti u odnosu na WebForms verziju](#61-prednosti-u-odnosu-na-webforms-verziju)
     - [**✔️ Čista arhitektura**](#ista-arhitektura)
     - [**✔️ Testabilnost**](#testabilnost)
@@ -57,12 +56,8 @@
     - [**✔️ Skalabilnost**](#skalabilnost)
   - [6.2. Identificirana ograničenja](#62-identificirana-ogranienja)
   - [6.3. Procjena ciljeva modernizacije](#63-procjena-ciljeva-modernizacije)
-- [-------------------](#-------------------)
-- [7. Zaključak](#7-zakljuak)
-- [-------------------](#-------------------)
-- [-----------------------------------------](#-----------------------------------------)
+  - [7. Zaključak](#7-zakljuak)
 - [PRILOG A – Instalacija i pokretanje](#prilog-a--instalacija-i-pokretanje)
-- [-----------------------------------------](#-----------------------------------------)
   - [A.1. Preduvjeti](#a1-preduvjeti)
   - [A.2. Instalacija baze](#a2-instalacija-baze)
   - [A.3. Pokretanje backend API-ja](#a3-pokretanje-backend-api-ja)
@@ -1912,7 +1907,6 @@ proxy: {
 ```
 # 6. Evaluacija moderniziranog rješenja
 
-# ---------------------------------------
 
 Evaluacija moderniziranog rješenja provedena je usporedbom stare ASP.NET
 WebForms aplikacije i novog sustava temeljenog na ASP.NET Core 9 i React
@@ -1986,18 +1980,13 @@ Iako modernizacija donosi velik napredak, postoje određena ograničenja:
 | Zamjena zastarjele WebForms tehnologije     | ✔️           |
 | Uvođenje modernog REST API-ja               | ✔️           |
 | Odvajanje prikaznog i poslužiteljskog sloja | ✔️           |
-```
 | Viša testabilnost (xUnit)                   | ✔️           |
-```
 | Uvođenje React SPA sučelja                  | ✔️           |
 | Povećanje održivosti i modularnosti         | ✔️           |
 | Jednostavnije proširenje funkcionalnosti    | ✔️           |
 
-# -------------------
 
 # 7. Zaključak
-
-# -------------------
 
 U ovom diplomskom radu provedena je cjelovita modernizacija zastarjele
 ASP.NET WebForms aplikacije u suvremeni tehnološki sklop temeljen na
@@ -2037,11 +2026,9 @@ Budući razvoj ovog rješenja može uključivati:
 Modernizirani sustav predstavlja stabilnu platformu za daljnji razvoj i
 implementaciju budućih funkcionalnosti.
 
-# -----------------------------------------
 
 # PRILOG A – Instalacija i pokretanje
 
-# -----------------------------------------
 
 ## A.1. Preduvjeti
 
