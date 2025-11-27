@@ -1,5 +1,4 @@
 # Sadržaj
-# Sadržaj
 
 - [Sadržaj](#sadraj)
   - [3. ARHITEKTURA MODERNIZIRANOG RJEŠENJA](#3-arhitektura-moderniziranog-rjeenja)
