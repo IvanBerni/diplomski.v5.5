@@ -810,24 +810,24 @@ arhitektura to lako dopušta (JWT, OAuth, Identity).
 
 Nova arhitektura donosi sljedeće prednosti:
 
-### ✔️ Čisto odvajanje frontenda i backenda
+###  Čisto odvajanje frontenda i backenda
 
 Frontend više nije ovisan o izvedbi poslužitelja.
 
-### ✔️ Bolja testabilnost
+###  Bolja testabilnost
 
 Servisi i logika mogu se testirati bez Web UI-ja.
 
-### ✔️ Skalabilnost
+###  Skalabilnost
 
 Moguće je skalirati API i frontend neovisno.
 
-### ✔️ Modularnost i proširivost
+###  Modularnost i proširivost
 
 Novi entiteti, nove funkcije i novi API endpointi mogu se jednostavno
 dodati.
 
-### ✔️ Moderno korisničko iskustvo
+###  Moderno korisničko iskustvo
 
 React donosi dinamičnost, brzinu i responzivnost.
 
